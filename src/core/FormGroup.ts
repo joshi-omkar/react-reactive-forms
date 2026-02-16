@@ -18,6 +18,10 @@ export class FormGroup<T extends Record<string, any>> extends AbstractControl<T>
       });
     });
 
+    Object.values(this.controls).forEach((control) => {
+        (control as any).parent = this;
+    });      
+
     this.updateValueAndValidity();
   }
 
