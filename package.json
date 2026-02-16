@@ -1,6 +1,6 @@
 {
-    "name": "react-reactive-forms",
-    "version": "0.1.0",
+    "name": "reactive-formify",
+    "version": "0.1.1",
     "description": "A reactive forms library for React inspired by Angular Reactive Forms",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
@@ -42,12 +42,12 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/yourusername/react-reactive-forms.git"
+        "url": "https://github.com/joshi-omkar/react-reactive-forms.git"
     },
     "bugs": {
-        "url": "https://github.com/yourusername/react-reactive-forms/issues"
+        "url": "https://github.com/joshi-omkar/react-reactive-forms/issues"
     },
-    "homepage": "https://github.com/yourusername/react-reactive-forms#readme",
+    "homepage": "https://github.com/joshi-omkar/react-reactive-forms#readme",
     "peerDependencies": {
         "react": "^18.0.0 || ^19.0.0"
     },
