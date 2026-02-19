@@ -1,15 +1,42 @@
-import { ControlStatus } from "./controlStatus";
+// -----------------------------
+// Validation
+// -----------------------------
 
-export type ValidationErrors = Record<string, any> | null;
+export type ValidationErrors = {
+  [key: string]: any
+}
 
 export type ValidatorFn<T = any> = (
-  value: T,
-  control?: any
-) => ValidationErrors;
+  value: T
+) => ValidationErrors | null
 
 export type AsyncValidatorFn<T = any> = (
-  value: T,
-  control?: any
-) => Promise<ValidationErrors>;
+  value: T
+) => Promise<ValidationErrors | null>
 
-export type ControlUpdateFn = () => void;
+// -----------------------------
+// Control Status
+// -----------------------------
+
+export type ControlStatus =
+  | 'VALID'
+  | 'INVALID'
+  | 'PENDING'
+  | 'DISABLED'
+
+// -----------------------------
+// Subscription System
+// -----------------------------
+
+export type Listener = () => void
+
+// -----------------------------
+// Optional: Control Options
+// (useful later for config)
+// -----------------------------
+
+export interface ControlOptions<T = any> {
+  validators?: ValidatorFn<T>[]
+  asyncValidators?: AsyncValidatorFn<T>[]
+  updateOn?: 'change' | 'blur' | 'submit'
+}

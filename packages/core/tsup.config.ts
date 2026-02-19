@@ -11,5 +11,6 @@ export default defineConfig({
   external: ['react'],
   minify: false,
   target: 'es2020',
+  tsconfig: './tsconfig.json',
   outDir: 'dist',
 });

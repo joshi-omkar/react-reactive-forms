@@ -1,0 +1,20 @@
+{
+    "name": "react-formflow",
+    "version": "0.1.0",
+    "description": "Framework-agnostic form engine",
+    "main": "dist/index.cjs",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": ["dist"],
+    "sideEffects": false,
+    "scripts": {
+      "build": "tsup src/index.ts --format esm,cjs --dts",
+      "dev": "tsup src/index.ts --watch",
+      "typecheck": "tsc --noEmit"
+    },
+    "devDependencies": {
+      "tsup": "^8.0.0",
+      "typescript": "^5.4.0"
+    }
+  }
+  

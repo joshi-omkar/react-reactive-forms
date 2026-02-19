@@ -1,65 +1,66 @@
-import { AbstractControl } from "./AbstractControl";
+import { AbstractControl } from '../abstract/AbstractControl'
+import { ValidatorFn, AsyncValidatorFn } from '../types'
 
 export class FormArray<T = any> extends AbstractControl<T[]> {
-  controls: AbstractControl<T>[];
+  controls: AbstractControl<T>[]
 
-  constructor(controls: AbstractControl<T>[]) {
-    super();
-    this.controls = controls;
+  constructor(
+    controls: AbstractControl<T>[],
+    validators: ValidatorFn<T[]>[] = [],
+    asyncValidators: AsyncValidatorFn<T[]>[] = []
+  ) {
+    super(validators, asyncValidators)
+    this.controls = controls
 
-    this.controls.forEach((control) => {
-      control.subscribe(() => this.updateValueAndValidity());
-    });
+    this.controls.forEach(control => {
+      control.setParent(this)
+      control.subscribe(() => this.updateValue())
+    })
 
-    this.updateValueAndValidity();
+    this.updateValue()
   }
 
-  at(index: number) {
-    return this.controls[index];
+  private updateValue() {
+    this._value = this.controls.map(control => control.value)
+    this.updateValueAndValidity()
+    this.emit()
+  }
+
+  at(index: number): AbstractControl<T> {
+    return this.controls[index]
   }
 
   push(control: AbstractControl<T>) {
-    this.controls.push(control);
-    control.subscribe(() => this.updateValueAndValidity());
-    this.updateValueAndValidity();
+    control.setParent(this)
+    control.subscribe(() => this.updateValue())
+    this.controls.push(control)
+    this.updateValue()
   }
 
   removeAt(index: number) {
-    this.controls.splice(index, 1);
-    this.updateValueAndValidity();
+    this.controls.splice(index, 1)
+    this.updateValue()
   }
 
   setValue(values: T[]) {
     values.forEach((value, index) => {
       if (this.controls[index]) {
-        this.controls[index].setValue(value);
+        this.controls[index].setValue(value)
       }
-    });
+    })
   }
 
-  protected calculateValue(): T[] {
-    return this.controls.map((c) => c.value);
+  patchValue(values: Partial<T[]>) {
+    values.forEach((value, index) => {
+      if (this.controls[index]) {
+        this.controls[index].patchValue(value as any)
+      }
+    })
   }
 
-  async updateValueAndValidity() {
-    this._value = this.calculateValue();
-
-    let hasInvalid = false;
-    let hasPending = false;
-
-    for (const control of this.controls) {
-      if (control.pending) hasPending = true;
-      if (control.invalid) hasInvalid = true;
-    }
-
-    if (hasPending) {
-      this._status = "PENDING";
-    } else if (hasInvalid) {
-      this._status = "INVALID";
-    } else {
-      this._status = "VALID";
-    }
-
-    this.notify();
+  reset(values?: T[]) {
+    this.controls.forEach((control, index) => {
+      control.reset(values?.[index])
+    })
   }
 }
