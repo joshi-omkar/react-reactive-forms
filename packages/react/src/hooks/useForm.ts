@@ -1,36 +1,33 @@
-import { useEffect, useState } from "react";
-import { FormGroup } from "../core/FormGroup";
+import { useRef } from 'react'
+import { useFormState } from './useFormState'
+import { FormGroup } from '@react-formflow/core'
 
-export function useReactiveForm<T extends Record<string, any>>(
+interface UseFormOptions<T extends Record<string, any>> {
   form: FormGroup<T>
-) {
-  const [, setTick] = useState(0);
+}
 
-  useEffect(() => {
-    const unsubscribe = form.subscribe(() => {
-      setTick((t) => t + 1);
-    });
+export function useForm<T extends Record<string, any>>({
+  form,
+}: UseFormOptions<T>) {
+  const formRef = useRef(form)
 
-    return unsubscribe;
-  }, [form]);
+  const state = useFormState(formRef.current)
 
   const handleSubmit =
-    (onSubmit: (value: T) => void) =>
+    (onValid: (value: T) => void) =>
     (e?: React.FormEvent) => {
-      if (e) e.preventDefault();
+      if (e) e.preventDefault()
 
-      if (form.valid) {
-        onSubmit(form.value);
+      formRef.current.updateValueAndValidity()
+
+      if (formRef.current.valid) {
+        onValid(formRef.current.value)
       }
-    };
+    }
 
   return {
-    form,
-    value: form.value,
-    valid: form.valid,
-    invalid: form.invalid,
-    pending: form.pending,
-    errors: form.errors,
+    form: formRef.current,
     handleSubmit,
-  };
+    formState: state,
+  }
 }

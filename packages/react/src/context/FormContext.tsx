@@ -1,5 +1,5 @@
+import { FormGroup } from "@react-formflow/core";
 import React, { createContext, useContext } from "react";
-import { FormGroup } from "../core/FormGroup";
 
 type FormContextType = FormGroup<any> | null;
 

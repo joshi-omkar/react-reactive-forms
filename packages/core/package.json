@@ -1,20 +1,26 @@
 {
-    "name": "react-formflow",
-    "version": "0.1.0",
-    "description": "Framework-agnostic form engine",
-    "main": "dist/index.cjs",
-    "module": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "files": ["dist"],
-    "sideEffects": false,
-    "scripts": {
-      "build": "tsup src/index.ts --format esm,cjs --dts",
-      "dev": "tsup src/index.ts --watch",
-      "typecheck": "tsc --noEmit"
-    },
-    "devDependencies": {
-      "tsup": "^8.0.0",
-      "typescript": "^5.4.0"
+  "name": "@react-formflow/core",
+  "version": "0.1.0",
+  "description": "Framework-agnostic form engine",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     }
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
   }
-  
+}

@@ -1,2 +1,48 @@
-/node_modules
-/dist
+# Dependencies
+node_modules/
+.pnpm-store/
+**/node_modules
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temp / Cache
+.cache/
+.turbo/
+tmp/
+temp/
+
+# Changesets (keep config, ignore temp)
+.changeset/*.md
+
+# Vite
+*.local

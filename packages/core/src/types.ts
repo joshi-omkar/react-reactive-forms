@@ -28,7 +28,7 @@ export type ControlStatus =
 // Subscription System
 // -----------------------------
 
-export type Listener = () => void
+export type Listener<T = any> = (value?: T) => void
 
 // -----------------------------
 // Optional: Control Options

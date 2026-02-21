@@ -1,5 +1,5 @@
 {
-  "name": "@your-username/simple-form-kit-validators",
+  "name": "@react-formflow/validators",
   "version": "0.1.0",
   "description": "Built-in validators for Simple Form Kit",
   "main": "dist/index.cjs",
@@ -15,7 +15,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@your-username/simple-form-kit-core": "workspace:*"
+    "@react-formflow/core": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

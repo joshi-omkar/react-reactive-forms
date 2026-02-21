@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import { FormGroup } from "../core/FormGroup";
-import { useFormContext } from "./context";
+import { useSyncExternalStore } from 'react'
+import { AbstractControl } from '@react-formflow/core'
 
-export function useFormGroup<T = any>(name?: string) {
-  const parent = useFormContext();
-  const group = name ? (parent.get(name) as FormGroup<Record<string, any>>) : parent;
-
-  const [, setTick] = useState(0);
-
-  useEffect(() => {
-    const unsub = group.subscribe(() => {
-      setTick((t) => t + 1);
-    });
-    return unsub;
-  }, [group]);
-
-  return group;
+export function useFormState<T>(
+  control: AbstractControl<T>
+) {
+  return useSyncExternalStore(
+    (callback) => control.subscribe(callback),
+    () => ({
+      value: control.value,
+      valid: control.valid,
+      invalid: control.invalid,
+      pending: control.pending,
+      errors: control.errors,
+      dirty: control.dirty,
+      touched: control.touched,
+    })
+  )
 }
